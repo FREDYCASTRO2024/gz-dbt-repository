@@ -3,10 +3,14 @@ version: 2
 sources:
   - name: raw_data
     schema: gz_raw_data
+    description: greenweez raw data source
     tables:
       - name: product
         identifier: raw_gz_product
+        description: It changed its name from pdt_id to products_id
       - name: sales
         identifier: raw_gz_sales
+        description: It changed its name  from purchse_price as purchase_price
       - name: ship
         identifier: raw_gz_ship
+        description: You should keep only one of the columns
