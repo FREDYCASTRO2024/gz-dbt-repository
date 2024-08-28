@@ -19,12 +19,8 @@ sources:
             description: the quantity of products purchased for this order
         tests:
           - unique:
-              column_name: "(orders_id || '-' || pdt_id)" 
-          ## OR ##
-          - dbt_utils.unique_combination_of_columns:
-              combination_of_columns:
-                - orders_id
-                - pdt_id     
+              column_name: "(orders_id || '-' || pdt_id)"
+         
       - name: product
         identifier: raw_gz_product
         description: products of Greenweez
@@ -34,7 +30,7 @@ sources:
             tests:
               - unique
               - not_null
-                      
+
           - name: purchase_price
             description: the purchase price of the product
       - name: ship
@@ -46,10 +42,13 @@ sources:
             tests:
               - unique
               - not_null
-                      
+
           - name: shipping_fee
             description: the price the customer pays for shipping
           - name: log_cost
             description: the cost of preparing the parcel in the warehouse
           - name: ship_cost
             description: the shipping cost paid by Greenweez to the carrier/transporter
+        freshness:
+              warn_after: {count: 90, period: day}
+        loaded_at_field: "CAST(date_date AS TIMESTAMP)"
