@@ -11,8 +11,8 @@ sources:
           - name: products_id
             description: primary key of the table
             tests:
-              - unique:
-              - not_null:    
+              - unique
+              - not_null   
           - name: purchase_price
             description: the purchase price of the product      
       - name: sales
