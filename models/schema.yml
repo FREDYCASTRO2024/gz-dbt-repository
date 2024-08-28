@@ -9,7 +9,10 @@ sources:
         description: products of greenweez
         columns:
           - name: products_id
-            description: primary key of the product
+            description: primary key of the table
+            tests:
+              - unique:
+              - not_null:    
           - name: purchase_price
             description: the purchase price of the product      
       - name: sales
@@ -25,13 +28,24 @@ sources:
           - name: revenue
             description: the amount paid by the customer to purchase the product, revenue = quantity * selling_price
           - name: quantity
-            description: the quantity of products purchased for this order       
+            description: the quantity of products purchased for this order 
+        tests:
+        - unique:
+           column_name: "(orders_id || '-' || pdt_id)"
+        ## OR ##
+        - dbt_utils.unique_combination_of_columns:
+            combination_of_columns:
+              - orders_id
+              - pdt_id               
       - name: ship
         identifier: raw_gz_ship
         description: ship of Greenweez
         columns:
           - name: orders_id
             description: primary key of the table
+            tests:
+              - unique:
+              - not_null:    
           - name: shipping_fee
             description: the price the customer pays for shipping
           - name: log_cost
