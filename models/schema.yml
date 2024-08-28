@@ -3,14 +3,38 @@ version: 2
 sources:
   - name: raw_data
     schema: gz_raw_data
-    description: greenweez raw data source
     tables:
       - name: product
         identifier: raw_gz_product
-        description: It changed its name from pdt_id to products_id
+        description: products of greenweez
+        columns:
+          - name: products_id
+            description: primary key of the product
+          - name: purchase_price
+            description: the purchase price of the product      
       - name: sales
         identifier: raw_gz_sales
-        description: It changed its name  from purchse_price as purchase_price
+        description: sales of Greenweez / we have one row per productid found in each orders_id
+        columns:
+          - name: date_date
+            description: the date of purchase
+          - name: orders_id
+            description: foreign key to ship
+          - name: pdt_id
+            description: foreign key to product 
+          - name: revenue
+            description: the amount paid by the customer to purchase the product, revenue = quantity * selling_price
+          - name: quantity
+            description: the quantity of products purchased for this order       
       - name: ship
         identifier: raw_gz_ship
-        description: You should keep only one of the columns
+        description: ship of Greenweez
+        columns:
+          - name: orders_id
+            description: primary key of the table
+          - name: shipping_fee
+            description: the price the customer pays for shipping
+          - name: log_cost
+            description: the cost of preparing the parcel in the warehouse
+          - name: ship_cost
+            description: the shipping cost paid by Greenweez to the carrier/transporter
